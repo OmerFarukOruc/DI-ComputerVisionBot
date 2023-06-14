@@ -43,7 +43,7 @@ while True:
             print('Error: Diablo Immortal window not found.')
             exit()
 
-        time.sleep(2)
+        time.sleep(6)
 
         rect = win32gui.GetWindowRect(hwnd)
         x, y = rect[0], rect[1]
@@ -53,8 +53,8 @@ while True:
         enter_raid_match = cv2.matchTemplate(screen, enter_raid_template, cv2.TM_CCOEFF_NORMED)
         enter_raid_location = np.where(enter_raid_match >= MATCH_THRESHOLD_FIND_RAID)
         if enter_raid_location[0].size > 0:
-            # Click the Enter button
-
+            print('Enter button found.')
+            time.sleep(2)
             enter_button_x = 200
             enter_button_y = 300
             win32gui.SetForegroundWindow(hwnd)
@@ -76,10 +76,9 @@ while True:
         enter_button_match = cv2.matchTemplate(screen, enter_button_template, cv2.TM_CCOEFF_NORMED)
         enter_button_location = np.where(enter_button_match >= MATCH_THRESHOLD)
         if enter_button_location[0].size > 0:
-            # Click the Enter button
+            # Click the Enter buttons
             enter_button_x = 1670
             enter_button_y = 780
-            win32gui.SetForegroundWindow(hwnd)
             win32api.SetCursorPos((enter_button_x, enter_button_y))
             win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, enter_button_x, enter_button_y, 0, 0)
             win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, enter_button_x, enter_button_y, 0, 0)
@@ -182,7 +181,7 @@ while True:
             win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, enter_button_x, enter_button_y, 0, 0)
             win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, enter_button_x, enter_button_y, 0, 0)
 
-            time.sleep(0.5)
+            time.sleep(1.5)
             enter_button_x = 1150
             enter_button_y = 650
             win32api.SetCursorPos((enter_button_x, enter_button_y))
