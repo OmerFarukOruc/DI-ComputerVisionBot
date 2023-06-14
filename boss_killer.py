@@ -93,7 +93,7 @@ while True:
     rect = win32gui.GetWindowRect(hwnd)
     x, y = rect[0], rect[1]
     w, h = rect[2] - x, rect[3] - y
-    
+
     screen = np.array(pyautogui.screenshot(region=(x, y, w, h)))
     ashava_text_match = cv2.matchTemplate(screen, ashava_text_template, cv2.TM_CCOEFF_NORMED)
     ashava_text_location = np.where(ashava_text_match >= MATCH_THRESHOLD_ASHAVA)
@@ -101,7 +101,11 @@ while True:
         # Spam the primary attack
         DIKeys.KeyDown(hexKeyMap.DIK_SPACE)
 
-    
+        DIKeys.press(hexKeyMap.DIK_1, 0.2)
+        DIKeys.press(hexKeyMap.DIK_2, 0.2)
+        DIKeys.press(hexKeyMap.DIK_3, 0.2)
+        DIKeys.press(hexKeyMap.DIK_4, 0.2)
+
         # Check the intervals for Key 1 to 4
         time_elapsed = time.time() - primary_attack_start_time
         if time_elapsed - key1_last_time >= KEY1_INTERVAL:
