@@ -12,6 +12,7 @@ import DIKeys, hexKeyMap
 ENTER_BUTTON_PATH = r'C:\Users\omer\Desktop\gpt-engineer-main\python\enter.png'
 ASHAVA_TEXT_PATH = r'C:\Users\omer\Desktop\gpt-engineer-main\python\ashava.png'
 MATCH_THRESHOLD = 0.9
+MATCH_THRESHOLD_ASHAVA = 0.6
 
 # Define the key press intervals in seconds
 KEY1_INTERVAL = 10
@@ -68,7 +69,7 @@ while True:
 
     screen = np.array(pyautogui.screenshot(region=(x, y, w, h)))
     ashava_text_match = cv2.matchTemplate(screen, ashava_text_template, cv2.TM_CCOEFF_NORMED)
-    ashava_text_location = np.where(ashava_text_match >= MATCH_THRESHOLD)
+    ashava_text_location = np.where(ashava_text_match >= MATCH_THRESHOLD_ASHAVA)
     if ashava_text_location[0].size > 0:
         print('ASHAVA FOUND.')
         break
@@ -89,9 +90,13 @@ key3_last_time = 0
 key4_last_time = 0
 
 while True:
-    screen = np.array(pyautogui.screenshot(region=(888, 15, 140, 30)))
+    rect = win32gui.GetWindowRect(hwnd)
+    x, y = rect[0], rect[1]
+    w, h = rect[2] - x, rect[3] - y
+    
+    screen = np.array(pyautogui.screenshot(region=(x, y, w, h)))
     ashava_text_match = cv2.matchTemplate(screen, ashava_text_template, cv2.TM_CCOEFF_NORMED)
-    ashava_text_location = np.where(ashava_text_match >= MATCH_THRESHOLD)
+    ashava_text_location = np.where(ashava_text_match >= MATCH_THRESHOLD_ASHAVA)
     if ashava_text_location[0].size > 0:
         # Spam the primary attack
         DIKeys.KeyDown(hexKeyMap.DIK_SPACE)
