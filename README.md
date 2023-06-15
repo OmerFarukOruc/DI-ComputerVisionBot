@@ -7,7 +7,7 @@ Before running the script, make sure you have the following libraries installed:
 2. NumPy
 3. PyAutoGUI
 4. pywin32
-5. 
+
 Usage
 1. Open the Diablo Immortal game and make sure the game window is active.
 2. Run the script.
