@@ -15,6 +15,7 @@ Usage
 4. The script will move the character to the Ashava boss location.
 5. The script will automatically attack the boss using primary attacks and skills at pre-defined intervals.
 6. Once the boss is defeated, the script will loot the items and restart the process.
+
 Notes
 
 This script is provided for educational and experimental purposes only. Use it at your own risk. The author is not responsible for any consequences resulting from the use of the script.
