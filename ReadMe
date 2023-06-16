@@ -15,6 +15,7 @@ Usage:
 4. The script will move the character to the Ashava boss location.
 5. The script will automatically attack the boss using primary attacks and skills at pre-defined intervals.
 6. Once the boss is defeated, the script will loot the items and restart the process.
+7. Each pre-defined runs completed it salvages all loot in blacksmith. In order to salvage properly, character should still stand close to blacksmith by default. (At least for now.^^)
 
 Notes:
 
