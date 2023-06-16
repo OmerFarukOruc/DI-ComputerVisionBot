@@ -1,5 +1,4 @@
-Diablo Immortal Auto-Attacker
-This Python script is designed to automate the process of defeating the Ashava boss in Diablo Immortal game. It uses computer vision techniques and simulation of keyboard keys and mouse clicks to navigate through the game and attack the boss.
+This Python script is designed to automate the process of defeating a specific boss in a game. It uses computer vision techniques and simulation of keyboard keys and mouse clicks to navigate through the game and attack the boss.
 
 Getting Started
 Before running the script, make sure you have the following libraries installed:
