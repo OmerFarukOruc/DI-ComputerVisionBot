@@ -11,6 +11,7 @@ enter_raid_image = cv2.imread('enter_raid.png')
 enter_button_image = cv2.imread('enter_button.png')
 ashava_found_image = cv2.imread('ashava_found.png')
 ashava_dead_image = cv2.imread('ashava_dead.png')
+returned_westmarch_image = cv2.imread('returned_westmarch.png')
 
 threshold = 0.9
 KEY1_INTERVAL = 7
@@ -18,6 +19,7 @@ KEY2_INTERVAL = 18
 KEY3_INTERVAL = 10
 KEY4_INTERVAL = 8
 KEY5_INTERVAL = 23
+count = 0
 
 def clickEnterRaid():
 
@@ -63,7 +65,6 @@ def clickEnterButton():
         
         if max_val2 >= threshold:
             print('Match found with a rate of:', max_val2)
-            win32gui.SetForegroundWindow(win32gui.FindWindow(None, "Diablo Immortal"))
             win32api.SetCursorPos((1750, 780))
             win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 1750, 780, 0, 0)
             win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 1750, 780, 0, 0)
@@ -170,21 +171,93 @@ def beginAttack():
         result5 = cv2.matchTemplate(gray_screenshot5, cv2.cvtColor(ashava_dead_image, cv2.COLOR_BGR2GRAY), cv2.TM_CCOEFF_NORMED)
         min_val5, max_val5, min_loc5, max_loc5 = cv2.minMaxLoc(result5)
 
-        
         if max_val5 >=  threshold:
             print('Attacking is finished. Boss is dead.')
             print('Match found with a rate of:', max_val5)
 
             time.sleep(2)
-            DIKeys.press(hexKeyMap.DIK_W, 1)
+
+            DIKeys.press(hexKeyMap.DIK_W, 0.7)
+            time.sleep(0.7)
+
+            DIKeys.press(hexKeyMap.DIK_W, 0.7)
+            time.sleep(0.7)
+
+            DIKeys.press(hexKeyMap.DIK_W, 0.7)
+            time.sleep(0.7)
+
+            win32api.SetCursorPos((1570, 140))
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 1570, 140, 0, 0)
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 1570, 140, 0, 0)
+
             time.sleep(2)
-            DIKeys.press(hexKeyMap.DIK_E, 0.1)
-            time.sleep(2)
+
             win32api.SetCursorPos((1150, 650))
             win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 1150, 650, 0, 0)
             win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 1150, 650, 0, 0)
 
+            time.sleep(6)
+
             break
+
+def salvage():
+
+    while True:
+        time.sleep(1)
+        print('Inventory is full. Salvaging...')
+
+        screen_width6, screen_height6 = pyautogui.size()
+        search_height6, search_width6, _ = returned_westmarch_image.shape
+        search_range6 = (0, 0, screen_width6 - search_width6, screen_height6 - search_height6)
+        screenshot6 = np.array(pyautogui.screenshot())
+        gray_screenshot6 = cv2.cvtColor(screenshot6, cv2.COLOR_BGR2GRAY)
+        result6 = cv2.matchTemplate(gray_screenshot6, cv2.cvtColor(returned_westmarch_image, cv2.COLOR_BGR2GRAY), cv2.TM_CCOEFF_NORMED)
+        min_val6, max_val6, min_loc6, max_loc6 = cv2.minMaxLoc(result6)
+
+        if max_val6 >= threshold:
+            print('Salvaging is started.')
+            print('Match found with a rate of:', max_val6)
+            DIKeys.press(hexKeyMap.DIK_E, 1)
+
+            time.sleep(1)
+
+            win32api.SetCursorPos((1530, 670)) # Services Button
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 1530, 670, 0, 0)
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 1530, 670, 0, 0)
+
+            time.sleep(1)
+
+            win32api.SetCursorPos((780, 970)) #White
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 780, 970, 0, 0)
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 780, 970, 0, 0)
+
+            time.sleep(1)
+
+            win32api.SetCursorPos((870, 970)) #Blue
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 870, 970, 0, 0)
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 870, 970, 0, 0)
+
+            time.sleep(1)
+
+            win32api.SetCursorPos((960, 970)) #Yellow
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 870, 970, 0, 0)
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 870, 970, 0, 0)
+
+            time.sleep(1)
+
+            win32api.SetCursorPos((1500, 950)) #Salvage Button
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 1500, 950, 0, 0)
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 1500, 950, 0, 0)
+
+            time.sleep(1)
+
+            win32api.SetCursorPos((1850, 50)) # Close Button
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 1850, 50, 0, 0)
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 1850, 50, 0, 0)
+
+            time.sleep(2)  
+            break
+
 
 while True:
     if win32gui.FindWindow(None, "Diablo Immortal") == 0:
@@ -195,3 +268,8 @@ while True:
     clickEnterButton()
     moveCharacterToAshava()
     beginAttack()
+    count += 1
+    if count == 5:
+        salvage()
+        count = 0
+ 
